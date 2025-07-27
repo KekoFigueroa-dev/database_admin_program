@@ -1,8 +1,16 @@
-# Database Admin Program
+"""
+Database Admin Program
 
-# 1. Print welcome message to the user
+Simulates a simple user login system with password management.
+- Users can log in with their credentials.
+- Non-admin users can change their password (minimum 8 characters).
+- Admin user can view all usernames and passwords.
+"""
+
+# Print welcome message
 print("Welcome to my Database Admin Program!")
-# 2. Initialize the user database dictionary with usernames and passwords
+
+# Initialize user database with usernames and passwords
 user_database = {
     "user01": "password01",
     "user02": "password02",
@@ -10,38 +18,35 @@ user_database = {
     "admin00": "adminpass",
 }
 
-# 3. Prompt user for their username
+# Prompt for username input
 username = input("Enter your username: ").strip().lower()
-# 4. Check if the username exists in the database looking trough the keys
-#    - If not, inform the user and exit
+
+# Validate username existence; exit if not found
 if username not in user_database.keys():
     print("Username not found. Please try again.")
-# 5. If username exists, prompt for password
+
+# Prompt for password input
 password = input("Enter your password: ").strip().lower()
-# 6. Verify the entered password
-#    - If incorrect, inform the user and exit
-#    - If correct, greet the user
+
+# Validate password; exit if incorrect
 if password != user_database[username]:
     print("Incorrect password. Please try again.")
 else:
     print(f"Hello {username}, welcome to the database admin program!")
 
-# 7. If the user is 'admin00', display all usernames and passwords
+# If admin, display all usernames and passwords
 if username == "admin00":
-    print("\nHellow Admin! Here are the current users and their passwords:")
+    print("\nHello Admin! Here are the current users and their passwords:")
     for user, pwd in user_database.items():
         print(f"Username: {user}, \tPassword: {pwd}")
 
-# 8. If the user is not 'admin00', ask if they want to change their password
-#    - If yes, prompt for new password and check length
-#        - If password is at least 8 characters, update and display new password
-#        - If not, reject and display old password
-#    - If no, print goodbye
+# If non-admin, offer password change option
 if username != "admin00":
-    print(f"\n Hello {username}! You are Logged in!")
+    print(f"\nHello {username}! You are logged in!")
     change_password = input("Do you want to change your password? (yes/no): ").strip().lower()
     if change_password == "yes":
         new_password = input("Enter your new password (at least 8 characters): ").strip()
+        # Update password if it meets length requirement
         if len(new_password) >= 8:
             user_database[username] = new_password
             print(f"Your password has been changed successfully! New password: {new_password}")
